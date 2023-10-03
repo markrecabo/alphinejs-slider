@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/main.css">
+    <script defer src="/assets/main.js"></script>
+    <title>AlphineJS Slider</title>
+</head>
+<body>
+
+
+    <div class="main-container p-20">
+
+        <div class="max-w-3xl mx-auto relative" x-data="{
+            dataSlider : 2,
+            slides : [
+                { id: 1, title: 'Hello World', body: 'WW-Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut hic delectus dignissimos odit vel architecto quidem veritatis quia ratione odio!' },
+                { id: 2, title: 'Hello Philippines', body: 'PH-Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut hic delectus dignissimos odit vel architecto quidem veritatis quia ratione odio!' },
+                { id: 3, title: 'Hello Malaysia', body: 'SG-Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut hic delectus dignissimos odit vel architecto quidem veritatis quia ratione odio!' },
+                { id: 4, title: 'Hello Singapore', body: 'MY-Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut hic delectus dignissimos odit vel architecto quidem veritatis quia ratione odio!' },
+            
+            ]
+        }">
+
+            <!-- Data Loop  -->
+            <template x-for="slide in slides" :key="slide.id">
+                <div class="p-24 h-80 flex items-center bg-slate-500 text-white" x-show="dataSlider === slide.id">
+
+                    <div>
+                        <h2 class="font-bold text-2xl pb-6" x-text="slide.title"></h2>
+                        <p class="text-sm" x-text="slide.body"></p>
+                    </div>
+
+                </div>
+            </template>
+
+
+            <!--  Back/Next Button  -->
+             <div class="absolute flex inset-0">
+                <!--  Previous Button -->
+                <div class="flex items-center justify-start w-1/2">
+                    <button 
+                        x-on:click="dataSlider = dataSlider === 1 ? slides.length : dataSlider - 1"
+                        class="text-white bg-slate-500 font-bold rounded-full border-gray-100 w-10 h-10 -ml-14">
+                        <svg class="p-2" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"></path>
+                          </svg>
+                    </button>
+                </div>
+
+
+                <div class="flex items-center justify-end w-1/2">
+                    <button 
+                        x-on:click="dataSlider = dataSlider === slides.length ? 1 : dataSlider + 1" 
+                        class="text-white bg-slate-500 font-bold rounded-full border-gray-100 w-10 h-10 -mr-14">
+                        <svg class="p-2" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"></path>
+                        </svg>
+                    </button>
+                </div>
+             </div>   
+
+            <!--  Slider Indicator  -->
+            <div class="absolute w-full flex items-center justify-center px-4 pt-2">
+                <template x-for="slide in slides" :key="slide.id"> 
+                        <button class="flex-1 w-4 h-2 mx-2 mb-2 rounded-md overflow-hidden transition-colors duration-200 ease-out hover:bg-slate-500 hover:shadow-lg"
+                        :class="{
+                            'bg-blue-900' : dataSlider === slide.id,
+                            'bg-slate-600' : dataSlider !== slide.id,
+                        }"
+                        x-on:click="dataSlider = slide.id"
+                        >
+                    </button>
+                </template>
+            </div>        
+        </div>
+
+
+    </div>
+    
+</body>
+</html>
